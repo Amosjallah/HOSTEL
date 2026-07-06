@@ -1,0 +1,29 @@
+// routes/properties.js
+import express from 'express';
+import {
+  createProperty, searchProperties, getPropertyDetail,
+  updateAvailability, getLandlordDashboard, getMapProperties, getMyProperties,
+  createVacancyAlert, getMyVacancyAlerts, deleteVacancyAlert
+} from '../controllers/propertyController.js';
+import { authenticate, requireLandlord, requireStudent } from '../middleware/auth.js';
+
+const router = express.Router();
+
+// Public routes
+router.get('/search', searchProperties);                      // UC-S03
+router.get('/map', getMapProperties);                         // UC-S05
+router.get('/:id', authenticate, getPropertyDetail);          // UC-S04 (auth optional for gate check)
+
+// Student vacancy alert routes
+router.post('/alerts', authenticate, requireStudent, createVacancyAlert);      // UC-S08
+router.get('/alerts/mine', authenticate, requireStudent, getMyVacancyAlerts);  // UC-S08
+router.delete('/alerts/:id', authenticate, requireStudent, deleteVacancyAlert); // UC-S08
+
+// Landlord protected routes
+router.post('/', authenticate, requireLandlord, createProperty);                    // UC-L02
+router.get('/landlord/mine', authenticate, requireLandlord, getMyProperties);
+router.get('/landlord/dashboard', authenticate, requireLandlord, getLandlordDashboard); // UC-L05
+router.patch('/:id/availability', authenticate, requireLandlord, updateAvailability);  // UC-L03
+
+export default router;
+

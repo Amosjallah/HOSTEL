@@ -1,0 +1,90 @@
+// src/server.js
+// KTU Student Hostel Portal — Express REST API entry point
+
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
+import cron from 'node-cron';
+
+// Routes
+import authRoutes from './routes/auth.js';
+import propertyRoutes from './routes/properties.js';
+import bookingRoutes from './routes/bookings.js';
+import reviewRoutes from './routes/reviews.js';
+import adminRoutes from './routes/admin.js';
+import notificationRoutes from './routes/notifications.js';
+import mapRoutes from './routes/map.js';
+
+// Services
+import { expireHolds } from './services/holdExpiryService.js';
+
+dotenv.config();
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+
+// ─── Security Middleware ────────────────────────────────────────────────────
+app.use(helmet());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true
+}));
+
+// Rate limiting — protect against brute force attacks
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  message: { error: 'Too many requests, please try again later.' }
+});
+app.use('/api/auth', limiter);
+
+// Body parsing
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// ─── API Routes ─────────────────────────────────────────────────────────────
+app.use('/api/auth',          authRoutes);
+app.use('/api/properties',    propertyRoutes);
+app.use('/api/bookings',      bookingRoutes);
+app.use('/api/reviews',       reviewRoutes);
+app.use('/api/admin',         adminRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/map',           mapRoutes);
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString(), service: 'KTU Hostel Portal API' });
+});
+
+// ─── 404 Handler ─────────────────────────────────────────────────────────────
+app.use((req, res) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// ─── Global Error Handler ─────────────────────────────────────────────────────
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).json({ error: 'Internal server error' });
+});
+
+// ─── Cron: Expire holds every 5 minutes ──────────────────────────────────────
+// Runs server-side regardless of page loads — implements the 24-hour hold expiry
+// requirement from Section 7.2 of the project brief.
+cron.schedule('*/5 * * * *', async () => {
+  console.log('⏱ Running hold expiry check...');
+  try {
+    const expired = await expireHolds();
+    if (expired > 0) console.log(`✅ Expired ${expired} hold(s)`);
+  } catch (err) {
+    console.error('❌ Hold expiry error:', err.message);
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`🚀 KTU Hostel Portal API running on http://localhost:${PORT}`);
+  console.log(`📋 Environment: ${process.env.NODE_ENV}`);
+});
+
+export default app;
