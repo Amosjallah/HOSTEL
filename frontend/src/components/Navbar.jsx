@@ -72,11 +72,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link to="/" className="navbar-brand-logo text-decoration-none d-flex align-items-center gap-2">
-            <span style={{
-              background: 'linear-gradient(135deg, var(--brand-orange), var(--brand-gold))',
-              borderRadius: '8px', padding: '4px 8px', fontSize: '1rem'
-            }}>🏠</span>
-            KTU<span>Hostel</span>
+            <img src="/logo.jpg" alt="Student Hostel Portal Logo" style={{ height: '54px', width: 'auto', borderRadius: '6px' }} />
           </Link>
 
           {/* Desktop Nav Links */}
@@ -86,6 +82,12 @@ export default function Navbar() {
             </Link>
             <Link to="/map" className="nav-link d-flex align-items-center gap-1">
               <Map size={15}/> Map
+            </Link>
+            <Link to="/faq" className="nav-link d-flex align-items-center gap-1">
+              FAQ
+            </Link>
+            <Link to="/contact" className="nav-link d-flex align-items-center gap-1">
+              Contact
             </Link>
             {user && (
               <Link to={getDashboardLink()} className="nav-link d-flex align-items-center gap-1">
@@ -233,6 +235,8 @@ export default function Navbar() {
             <Link to="/search" className="nav-link" onClick={() => setShowMenu(false)}>Browse Listings</Link>
             <Link to="/map" className="nav-link" onClick={() => setShowMenu(false)}>Map View</Link>
             {user && <Link to={getDashboardLink()} className="nav-link" onClick={() => setShowMenu(false)}>Dashboard</Link>}
+            <Link to="/faq" className="nav-link" onClick={() => setShowMenu(false)}>FAQ</Link>
+            <Link to="/contact" className="nav-link" onClick={() => setShowMenu(false)}>Contact</Link>
           </div>
         )}
       </div>

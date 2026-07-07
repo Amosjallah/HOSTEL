@@ -2,16 +2,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 
-// Pages
+// Public pages
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
-
-// Student pages
-import StudentDashboard from './pages/student/StudentDashboard';
 import SearchPage from './pages/student/SearchPage';
 import PropertyDetailPage from './pages/student/PropertyDetailPage';
 import MapPage from './pages/student/MapPage';
+import FaqPage from './pages/FaqPage';
+import ContactPage from './pages/ContactPage';
+
+// Student pages
+import StudentDashboard from './pages/student/StudentDashboard';
 import MyBookingsPage from './pages/student/MyBookingsPage';
 import MyReviewsPage from './pages/student/MyReviewsPage';
 
@@ -60,6 +62,8 @@ export default function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/property/:id" element={<PropertyDetailPage />} />
           <Route path="/map" element={<MapPage />} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route path="/contact" element={<ContactPage />} />
 
           {/* Student */}
           <Route path="/student" element={<PrivateRoute roles={['Student']}><StudentDashboard /></PrivateRoute>} />

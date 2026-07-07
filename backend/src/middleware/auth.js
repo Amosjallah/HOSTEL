@@ -50,3 +50,22 @@ export const requireStudent  = requireRole('Student');
 export const requireLandlord = requireRole('Landlord');
 export const requireAdmin    = requireRole('Admin');
 export const requireLandlordOrAdmin = requireRole('Landlord', 'Admin');
+
+/**
+ * Decodes the JWT token from the Authorization header if present.
+ * Does NOT throw a 401 error if the token is missing or invalid.
+ */
+export const optionalAuthenticate = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const token = authHeader.split(' ')[1];
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      req.user = decoded;
+    } catch (err) {
+      // Ignore token errors for optional authentication (e.g. expired or invalid)
+    }
+  }
+  next();
+};

@@ -1,6 +1,4 @@
-// src/pages/HomePage.jsx
-// UC-S03 entry point: hero search + featured listings + platform stats
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, MapPin, Shield, Star, Clock, ArrowRight, Map } from 'lucide-react';
 import Navbar from '../components/Navbar';
@@ -22,9 +20,24 @@ const STATS = [
   { value: '4.8★', label: 'Average Rating' },
 ];
 
+const HERO_IMAGES = [
+  'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600', // Modern residence exterior
+  'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1600', // Cozy student study space
+  'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=1600', // Comfort hostel room layout
+  'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1600'  // Bright single room
+];
+
 export default function HomePage() {
   const navigate = useNavigate();
   const [filters, setFilters] = useState({ neighborhood: '', room_type: '', max_price: '' });
+  const [heroIndex, setHeroIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroIndex(idx => (idx + 1) % HERO_IMAGES.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -41,6 +54,30 @@ export default function HomePage() {
 
       {/* ── Hero ─────────────────────────────────────────────────────── */}
       <section className="hero-section">
+        {/* Background Image Slides (Smooth Cross-fade) */}
+        {HERO_IMAGES.map((img, idx) => (
+          <div
+            key={idx}
+            style={{
+              backgroundImage: `url(${img})`,
+              position: 'absolute',
+              top: 0, left: 0, right: 0, bottom: 0,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              opacity: idx === heroIndex ? 0.28 : 0,
+              transition: 'opacity 1.5s ease-in-out',
+              zIndex: 0
+            }}
+          />
+        ))}
+        {/* Color overlay to merge image with the white portal color scheme */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(245, 245, 247, 0.78) 100%)',
+          zIndex: 0
+        }} />
+
         <div className="container position-relative" style={{ zIndex: 1 }}>
           <div className="row align-items-center">
             <div className="col-lg-7">

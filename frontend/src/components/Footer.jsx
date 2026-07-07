@@ -8,13 +8,7 @@ export default function Footer() {
         <div className="row g-4 mb-4">
           <div className="col-md-4">
             <div className="d-flex align-items-center gap-2 mb-3">
-              <span style={{
-                background: 'linear-gradient(135deg, var(--brand-orange), var(--brand-gold))',
-                borderRadius: '8px', padding: '4px 8px', fontSize: '1rem'
-              }}>🏠</span>
-              <span style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.2rem', color: 'var(--text-primary)' }}>
-                KTU<span style={{ color: 'var(--brand-orange)' }}>Hostel</span>
-              </span>
+              <img src="/logo.jpg" alt="Student Hostel Portal Logo" style={{ height: '65px', width: 'auto', borderRadius: '6px' }} />
             </div>
             <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', lineHeight: 1.7 }}>
               Ghana's trusted student accommodation platform for Koforidua Technical University. Find verified, safe, affordable off-campus housing near KTU.
@@ -30,8 +24,8 @@ export default function Footer() {
             <h5 style={{ fontSize: '0.95rem' }}>Students</h5>
             <Link to="/search" className="footer-link">Browse Listings</Link>
             <Link to="/map" className="footer-link">Map View</Link>
-            <Link to="/register" className="footer-link">Create Account</Link>
-            <Link to="/student/bookings" className="footer-link">My Bookings</Link>
+            <Link to="/faq" className="footer-link">Help & FAQ</Link>
+            <Link to="/contact" className="footer-link">Contact Support</Link>
           </div>
 
           <div className="col-6 col-md-2">

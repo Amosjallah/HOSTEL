@@ -7,31 +7,36 @@
 
 /* ─── CSS Variables / Design Tokens ─────────────────────────────────────── */
 :root {
-  --brand-orange: #FF6B35;
-  --brand-orange-dark: #E55A22;
-  --brand-orange-light: #FF8F5E;
-  --brand-gold: #F5A623;
-  --dark-navy: #0D1B2A;
-  --dark-navy-2: #1A2740;
-  --surface: #1E2F45;
-  --surface-2: #243450;
-  --surface-glass: rgba(30, 47, 69, 0.85);
-  --text-primary: #F0F4F8;
-  --text-secondary: #A8B8CC;
-  --text-muted: #7A8FA6;
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,107,53,0.4);
-  --success: #2ECC71;
-  --danger: #E74C3C;
-  --warning: #F5A623;
-  --info: #3498DB;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.35);
-  --shadow-hover: 0 8px 40px rgba(255,107,53,0.25);
-  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --logo-navy: #0A2240;
+  --logo-orange: #E06D06;
+  --logo-blue: #008BCE;
+  --logo-green: #4A8B3B;
+
+  --brand-orange: var(--logo-orange);
+  --brand-orange-dark: #C45B00;
+  --brand-orange-light: #FF8F2B;
+  --brand-gold: var(--logo-orange);
+  --dark-navy: #ffffff;
+  --dark-navy-2: #fcfcfc;
+  --surface: #ffffff;
+  --surface-2: #f5f5f7;
+  --surface-glass: rgba(255, 255, 255, 0.95);
+  --text-primary: var(--logo-navy);
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --border: #e2e8f0;
+  --border-hover: var(--logo-navy);
+  --success: var(--logo-green);
+  --danger: #e53e3e;
+  --warning: #dd6b20;
+  --info: var(--logo-blue);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --shadow-card: 0 4px 12px rgba(10, 34, 64, 0.05);
+  --shadow-hover: 0 8px 24px rgba(10, 34, 64, 0.08);
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ─── Base ───────────────────────────────────────────────────────────────── */
@@ -59,22 +64,24 @@ a:hover { color: var(--brand-orange-light); }
 
 /* ─── Bootstrap Overrides ────────────────────────────────────────────────── */
 .btn-primary {
-  background: linear-gradient(135deg, var(--brand-orange), var(--brand-orange-dark));
-  border: none;
+  background: var(--brand-orange);
+  color: #ffffff !important;
+  border: 1px solid var(--brand-orange);
   border-radius: var(--radius-md);
   font-weight: 600;
   padding: 0.6rem 1.5rem;
   transition: var(--transition);
-  box-shadow: 0 4px 15px rgba(255,107,53,0.3);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--brand-orange-light), var(--brand-orange));
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+  background: var(--brand-orange-dark);
+  border-color: var(--brand-orange-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(224, 109, 6, 0.25);
 }
 .btn-outline-primary {
   color: var(--brand-orange);
-  border: 2px solid var(--brand-orange);
+  border: 1.5px solid var(--brand-orange);
   border-radius: var(--radius-md);
   font-weight: 600;
   background: transparent;
@@ -82,8 +89,8 @@ a:hover { color: var(--brand-orange-light); }
 }
 .btn-outline-primary:hover {
   background: var(--brand-orange);
-  color: #fff;
-  transform: translateY(-2px);
+  color: #ffffff !important;
+  transform: translateY(-1px);
 }
 .btn-secondary {
   background: var(--surface-2);
@@ -134,13 +141,14 @@ a:hover { color: var(--brand-orange-light); }
 
 /* ─── Navbar ─────────────────────────────────────────────────────────────── */
 .navbar-hostel {
-  background: rgba(13, 27, 42, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
   padding: 0.75rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
 }
 .navbar-brand-logo {
   font-family: 'Outfit', sans-serif;
@@ -158,7 +166,7 @@ a:hover { color: var(--brand-orange-light); }
 }
 .nav-link:hover, .nav-link.active {
   color: var(--brand-orange) !important;
-  background: rgba(255,107,53,0.08);
+  background: rgba(10, 34, 64, 0.04);
 }
 
 /* ─── Notification Bell ──────────────────────────────────────────────────── */
@@ -170,7 +178,7 @@ a:hover { color: var(--brand-orange-light); }
   padding: 0.5rem;
   border-radius: var(--radius-sm);
 }
-.notif-bell:hover { color: var(--brand-orange); background: rgba(255,107,53,0.08); }
+.notif-bell:hover { color: var(--brand-orange); background: rgba(10, 34, 64, 0.04); }
 .notif-badge {
   position: absolute;
   top: 4px; right: 4px;
@@ -191,20 +199,18 @@ a:hover { color: var(--brand-orange-light); }
 /* ─── Hero Section ───────────────────────────────────────────────────────── */
 .hero-section {
   min-height: 85vh;
-  background:
-    linear-gradient(135deg, rgba(13,27,42,0.92) 0%, rgba(26,39,64,0.88) 100%),
-    url('https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=1600') center/cover;
   display: flex;
   align-items: center;
   position: relative;
   overflow: hidden;
+  background-color: var(--dark-navy);
 }
 .hero-section::before {
   content: '';
   position: absolute;
   top: -50%; left: -50%;
   width: 200%; height: 200%;
-  background: radial-gradient(circle at 30% 50%, rgba(255,107,53,0.08) 0%, transparent 60%);
+  background: radial-gradient(circle at 30% 50%, rgba(0, 0, 0, 0.03) 0%, transparent 60%);
   animation: float 8s ease-in-out infinite;
 }
 @keyframes float {
@@ -218,10 +224,11 @@ a:hover { color: var(--brand-orange-light); }
   margin-bottom: 1.2rem;
 }
 .hero-title .highlight {
-  background: linear-gradient(135deg, var(--brand-orange), var(--brand-gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: #000000;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+  background-clip: initial;
+  color: var(--brand-orange);
 }
 .hero-subtitle {
   font-size: 1.1rem;
@@ -370,7 +377,7 @@ a:hover { color: var(--brand-orange-light); }
 }
 .sidebar-item:hover, .sidebar-item.active {
   color: var(--brand-orange);
-  background: rgba(255,107,53,0.08);
+  background: rgba(10, 34, 64, 0.04);
   border-right: 3px solid var(--brand-orange);
 }
 .main-content { margin-left: 260px; padding: 2rem; min-height: calc(100vh - 65px); }
@@ -381,10 +388,10 @@ a:hover { color: var(--brand-orange-light); }
   border: none;
   font-weight: 500;
 }
-.alert-success { background: rgba(46,204,113,0.12); color: var(--success); border-left: 4px solid var(--success); }
-.alert-danger  { background: rgba(231,76,60,0.12);  color: var(--danger);  border-left: 4px solid var(--danger);  }
-.alert-warning { background: rgba(245,166,35,0.12); color: var(--warning); border-left: 4px solid var(--warning); }
-.alert-info    { background: rgba(52,152,219,0.12); color: var(--info);    border-left: 4px solid var(--info);    }
+.alert-success { background: rgba(43,138,62,0.08); color: var(--success); border-left: 4px solid var(--success); }
+.alert-danger  { background: rgba(201,42,42,0.08);  color: var(--danger);  border-left: 4px solid var(--danger);  }
+.alert-warning { background: rgba(255,170,0,0.08); color: var(--warning); border-left: 4px solid var(--warning); }
+.alert-info    { background: rgba(0,0,0,0.04); color: var(--info);    border-left: 4px solid var(--info);    }
 
 /* ─── Notification Dropdown ──────────────────────────────────────────────── */
 .notif-dropdown {
@@ -394,7 +401,7 @@ a:hover { color: var(--brand-orange-light); }
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
   z-index: 2000;
   overflow: hidden;
   animation: slideDown 0.2s ease;

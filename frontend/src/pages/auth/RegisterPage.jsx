@@ -44,10 +44,7 @@ export default function RegisterPage() {
 
             <div className="text-center mb-4">
               <Link to="/" className="d-inline-flex align-items-center gap-2 mb-3 text-decoration-none">
-                <span style={{ background:'linear-gradient(135deg,var(--brand-orange),var(--brand-gold))', borderRadius:'8px',padding:'4px 8px',fontSize:'1rem' }}>🏠</span>
-                <span style={{ fontFamily:'Outfit,sans-serif',fontWeight:800,fontSize:'1.3rem',color:'var(--text-primary)' }}>
-                  KTU<span style={{ color:'var(--brand-orange)' }}>Hostel</span>
-                </span>
+                <img src="/logo.jpg" alt="Student Hostel Portal Logo" style={{ height: '75px', width: 'auto', borderRadius: '6px' }} />
               </Link>
               <h2 style={{ fontFamily:'Outfit,sans-serif',fontWeight:800,fontSize:'1.8rem' }}>Create Account</h2>
               <p style={{ color:'var(--text-muted)',fontSize:'0.9rem' }}>Join thousands of KTU students</p>
